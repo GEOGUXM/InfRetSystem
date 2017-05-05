@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
 
-public class GenericEmptyWordsFilter 
+public class GenericStopWordsFilter 
 {
 	
 		TreeSet<String> swTree; 
 		String stpwrds;
 	
-	public GenericEmptyWordsFilter() throws IOException
+	public GenericStopWordsFilter() throws IOException
 	{
 		File f = new File(AppPath.EMPTY_WORDS);
 		 stpwrds = new String(Files.readAllBytes(Paths.get(f.getPath())));

@@ -14,7 +14,13 @@ public class Indexing
 			
 		String text;
 		ArrayList<String> vText;
+		
+		
 		FilterTermsManager ftm = new FilterTermsManager();
+		GenericStopWordsFilter gswf = new GenericStopWordsFilter();
+		MyStemmer st = new MyStemmer();
+		RemoveShortWords rsw = new RemoveShortWords();
+		
 		//ftm.addGFT(new FilterMayus());		
 		ftm.addGFT(new FilterMinus());
 		ftm.addGFT(new SpecialCharacterFilter("[^-\\w]", " "));
@@ -22,9 +28,8 @@ public class Indexing
 		ftm.addGFT(new SpecialCharacterFilter("\\b[0-9]+\\b", " "));
 		ftm.addGFT(new SpecialCharacterFilter("-+ | -+", " "));
 		ftm.addGFT(new SpecialCharacterFilter(" +", " "));
-		//ftm.addGFT(new GenericEmptyWordsFilter());
 		
-		GenericEmptyWordsFilter gewf = new GenericEmptyWordsFilter();
+		
 		
 		//File f = new File(AppPath.CORPUS_DATA);
 		File f = new File(AppPath.PRUEBA);
@@ -41,8 +46,11 @@ public class Indexing
 						 
 						 vText = new ArrayList<String>(Arrays.asList(text.split(" ")));
 						 
-						 vText = gewf.removeStopWords(vText);
+						 vText = gswf.removeStopWords(vText);
 						 
+						 vText = st.stem(vText);
+
+						 vText = rsw.removeUpTo(2, vText);
 						 
 						 System.out.println(vText);
 					 

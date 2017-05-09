@@ -23,6 +23,7 @@ public class Indexing
 		
 		//ftm.addGFT(new FilterMayus());		
 		ftm.addGFT(new FilterMinus());
+		ftm.addGFT(new SpecialCharacterFilter("'",""));
 		ftm.addGFT(new SpecialCharacterFilter("[^-\\w]", " "));
 		ftm.addGFT(new SpecialCharacterFilter("^-+", ""));
 		ftm.addGFT(new SpecialCharacterFilter("\\b[0-9]+\\b", " "));
@@ -40,6 +41,8 @@ public class Indexing
 				try {
 						// System.out.println(fil.getPath());
 						 text = new String(Files.readAllBytes(Paths.get(fil.getPath())));
+						 
+						 
 						//text = new String(Files.readAllBytes())
 						 text = ftm.execute(text);
 						 System.out.println(text);

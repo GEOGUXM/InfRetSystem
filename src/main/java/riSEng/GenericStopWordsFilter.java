@@ -18,7 +18,7 @@ public class GenericStopWordsFilter
 	{
 		File f = new File(AppPath.EMPTY_WORDS);
 		 stpwrds = new String(Files.readAllBytes(Paths.get(f.getPath())));
-		swTree = new TreeSet<String>(Arrays.asList(stpwrds.split("\n")));	
+		swTree = new TreeSet<String>(Arrays.asList(stpwrds.split(" ")));	
 		//System.out.println(swTree.toString());
 	}
 	
@@ -27,7 +27,7 @@ public class GenericStopWordsFilter
 		for(String s : swTree)
 		{
 			//System.out.print(s);
-			if(vText.contains(s)) vText.remove(s);
+			while(vText.contains(s)) vText.remove(s);
 		}
 		
 		return vText;

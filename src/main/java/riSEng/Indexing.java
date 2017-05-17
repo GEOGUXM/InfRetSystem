@@ -45,15 +45,17 @@ public class Indexing
 						 
 						//text = new String(Files.readAllBytes())
 						 text = ftm.execute(text);
-						 System.out.println(text);
+						 
 						 
 						 vText = new ArrayList<String>(Arrays.asList(text.split(" ")));
 						 
+						 
 						 vText = gswf.removeStopWords(vText);
 						 
+						 System.out.println(vText);
 						 vText = st.stem(vText);
 
-						 vText = rsw.removeUpTo(2, vText);
+						 vText = rsw.removeUpTo(3, vText);
 						 
 						 System.out.println(vText);
 					 

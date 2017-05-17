@@ -19,9 +19,6 @@ public class MyStemmer
 			}
 		}
 		
-		/*for (int i = 0; i < vText.size(); i++) {
-			String p = vText.get(i);
-		}*/
 		return vText;	
 	}
 	

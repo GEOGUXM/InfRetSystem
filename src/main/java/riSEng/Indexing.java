@@ -1,26 +1,37 @@
 package riSEng;
 
 import java.io.File;
+import java.util.Collections;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Indexing 
 {
+	public static int numFiles; 
+	
+	
 	public void execute() throws IOException 
 	{
 			
 		String text;
 		ArrayList<String> vText;
-		
+		File file = new File(AppPath.PRUEBA);
+		numFiles = file.list().length;
 		
 		FilterTermsManager ftm = new FilterTermsManager();
 		GenericStopWordsFilter gswf = new GenericStopWordsFilter();
 		MyStemmer st = new MyStemmer();
 		RemoveShortWords rsw = new RemoveShortWords();
+		ObtainTFIDF obttfidf = new ObtainTFIDF();
 		
+		HashMap<String,Double> sdmap = new HashMap<String,Double>();
+		HashMap<String, Tupla<Double, HashMap<File, Double>>> reverseIndex = new HashMap<String, Tupla<Double, HashMap<File, Double>>>();
+	
 		//ftm.addGFT(new FilterMayus());		
 		ftm.addGFT(new FilterMinus());
 		ftm.addGFT(new SpecialCharacterFilter("'",""));
@@ -58,6 +69,18 @@ public class Indexing
 						 vText = rsw.removeUpTo(3, vText);
 						 
 						 System.out.println(vText);
+						 
+						 sdmap = obttfidf.calcTF1(vText);
+						 obttfidf.calcTF2(sdmap, fil);
+						 
+						 obttfidf.calcIDF();
+
+							System.out.println(obttfidf.reverseIndex);
+							System.out.println(sdmap);
+							//HashMap<String,Double> ordered_sdmap = sdmap;
+							//Collections.sort(ordered_sdmap.keySet());
+						
+						 
 					 
 				} catch (Exception e) 
 			 		{

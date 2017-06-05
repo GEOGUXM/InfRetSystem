@@ -46,7 +46,7 @@ public class Indexing
 		
 		int i = 0;
 		//File f = new File(AppPath.CORPUS_DATA);
-		File f = new File(AppPath.PRUEBA);
+		File f = new File(AppPath.CORPUS_DATA);
 		
 		if(f.isDirectory())
 		{
@@ -67,10 +67,11 @@ public class Indexing
 						 //System.out.println(vText);
 						 vText = st.stem(vText);
 
-						// System.out.println(vText);
+						System.out.println(vText);
 						 
 						 freq = obttfidf.calcTF1(vText);
 						 obttfidf.calcTF2(freq, fil);
+						 
 			 }			
 						 
 			obttfidf.calcIDF();

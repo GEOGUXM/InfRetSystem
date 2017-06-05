@@ -45,7 +45,7 @@ public class ObtainTFIDF
 			{
 				HashMap<File, Double> fileMap = new HashMap<File, Double>();
 				fileMap.put(f, tf);
-				reverseIndex.put(p, new Tupla(0, fileMap));
+				reverseIndex.put(p, new Tupla<Double, HashMap<File,Double>>(0.0, fileMap));
 			}
 		}	
 	}
@@ -62,14 +62,14 @@ public class ObtainTFIDF
 	public HashMap<File, Double> calcLength()
 	{
 		HashMap<File, Double> lngth = new HashMap<File, Double>();
-		double idf = 0, tfidf = 0;
+		double idf = 0.0, tfidf = 0.0;
 		
 		for(String p : reverseIndex.keySet())
 		{
 			idf = reverseIndex.get(p).IDF();
 			for(File f : reverseIndex.get(p).docPeso().keySet())
 			{
-				tfidf = reverseIndex.get(p).docPeso().get(f)*idf;
+				tfidf = Math.pow(reverseIndex.get(p).docPeso().get(f)*idf,2);
 				if(lngth.containsKey(f)) tfidf+=lngth.get(f);
 				lngth.put(f, tfidf);
 			}

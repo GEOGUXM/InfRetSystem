@@ -14,17 +14,28 @@ public class Query {
 	 public static HashMap<String,Tupla<Double, HashMap<File, Double>>> reverseIndex;
 	 public static HashMap<File, Double> documentLength;
 	
-	public void preprocessing()
+	public void preprocessing() throws IOException
 	{
 		//CREACION DE FILTROS PARA LA CONSULTA
 		ftm = new FilterTermsManager();
+
 		ftm.addGFT(new SpecialCharacterFilter(" +", ""));
+
 		ftm.addGFT(new SpecialCharacterFilter("[{}]",""));
+		
+		
+		getreverseindex();
+		
+		getdoclength();
+		
+		
+		
 	}
 	
 	public void getdoclength() throws IOException
 	{
-		String dlFiltered = new String(Files.readAllBytes(Paths.get(AppPath.PRUEBA)));
+
+		String dlFiltered = new String(Files.readAllBytes(Paths.get(AppPath.RES+"docLength")));
 		documentLength = new HashMap<File, Double>();
 		
 		//Aplicamos los filtros
@@ -43,9 +54,10 @@ public class Query {
 	
 	public void getreverseindex() throws IOException
 	{
-		String rInd = new String(Files.readAllBytes(Paths.get(AppPath.PRUEBA)));
-		reverseIndex = new HashMap<String, Tupla<Double, HashMap<File, Double>>>();
 		
+		String rInd = new String(Files.readAllBytes(Paths.get(AppPath.RES+"reverseIndex")));
+		reverseIndex = new HashMap<String, Tupla<Double, HashMap<File, Double>>>();
+	
 		//Aplicamos los filtros
 		rInd = ftm.execute(rInd);
 		
@@ -57,7 +69,9 @@ public class Query {
 		 */
 		
 		int i = termsIndex.size()-1;
+		System.out.println(i);
 		ArrayList<String> wordIDF = new ArrayList<String>(Arrays.asList(termsIndex.get(i-1).split(",")));
+		
 		ArrayList<String> pathTF = new ArrayList<String>(Arrays.asList(termsIndex.get(i).split(",")));
 		
 		termsIndex.set(i, wordIDF.get(termsIndex.size()-1)+pathTF.toString());

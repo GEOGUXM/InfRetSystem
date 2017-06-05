@@ -29,14 +29,14 @@ public class ObtainTFIDF
 		return sdMap;
 	}
 	
-	public void calcTF2(HashMap<String, Double> sdMap, File f)
+	public void calcTF2(HashMap<String, Double> textFreq, File f)
 	{
 		double tf = 0;
 		
 		
-		for(String p: sdMap.keySet())
+		for(String p: textFreq.keySet())
 		{
-			tf = 1+Math.log(sdMap.get(p))/Math.log(2);
+			tf = 1+Math.log(textFreq.get(p))/Math.log(2);
 			
 			if(reverseIndex.containsKey(p))
 			{
@@ -59,7 +59,7 @@ public class ObtainTFIDF
 		}
 	}
 	
-	public HashMap<File, Double> calcularLongitud()
+	public HashMap<File, Double> calcLength()
 	{
 		HashMap<File, Double> lngth = new HashMap<File, Double>();
 		double idf = 0, tfidf = 0;
